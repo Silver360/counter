@@ -35,10 +35,6 @@ var Counter = (function () {
             selectedTimeToEvent = parseInt(selectedTimeToEventMin * 60) + parseInt(selectedTimeToEventSec);
             progressBar.style.transitionDuration = selectedTimeToEvent + 's';
 
-            setTimeout(function () {
-                progressBar.className.baseVal = progressBar.className.baseVal.concat(' counter__outer--progress-start');
-            }, 4);
-
             remainingTime = selectedTimeToEvent;
 
             countTime = setInterval(function () {
@@ -64,6 +60,10 @@ var Counter = (function () {
 
                 labelMin.innerText = remainMin;
                 labelSec.innerText = remainSec;
+
+                setTimeout(function () {
+                    progressBar.className.baseVal = progressBar.className.baseVal.concat(' counter__outer--progress-start');
+                }, 4);
             }
         }
     }
