@@ -1,0 +1,143 @@
+
+$colorBorderWidget: #283140;
+$colorBgWidget: #1e2633;
+$colorBgProgressBar: #232d39;
+$colorProgressBar: #0878a8;
+
+$speedAnimationGraph: 1s;
+$speedFadeOutCounter: 0.5s;
+
+.widget {
+    position: relative;
+    display: flex;
+    width: 87%;
+    min-height: 132px;
+    background-color: $colorBgWidget;
+    background: url('/src/assets/bgshape.png') left top no-repeat;
+    margin: 100px auto 100px auto;
+    border: 1px solid $colorBorderWidget;
+    align-items: center;
+
+    @include crossBrowser(border-radius, 15px);
+    @include crossBrowser(box-shadow,0 3px 10px transparentize(black, .5));
+
+    &:before {
+        z-index: 2;
+        content: ' ';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 15px;
+        box-shadow: inset 0 50px 70px rgba(167, 176, 255, 0.1);
+    }
+
+    .widget__zilean-container {
+        z-index: 1;
+        position: relative;
+        align-self: flex-end;
+    }
+
+    .widget__zilean-pic {
+        padding: 0px 10px;
+        vertical-align: bottom;
+    }
+
+    .widget__lead {
+        z-index: 3;
+        margin: 10px 0px;
+        font: 400 20px/22px $mainFont;
+        color: #ffffff;
+        flex-basis: 100%;
+    }
+
+    .counter {
+        z-index: 3;
+        position: relative;
+
+        &.counter--stop {
+
+            .counter__text {
+                opacity: 0;
+            }
+        }
+
+        .counter__chart {
+            margin: -15px 20px;
+        }
+
+        .counter__outer {
+            fill: transparent;
+            stroke: $colorBgProgressBar;
+            stroke-width: 20;
+            stroke-dasharray: 408;
+
+            @include crossBrowser(transition, $speedAnimationGraph linear);
+
+            &.counter__outer--progress {
+                stroke: $colorProgressBar;
+                stroke-dashoffset: 408;
+                stroke-dasharray: 408;
+            }
+
+            &.counter__outer--progress-start {
+                stroke-dashoffset: 0;
+
+                @include crossBrowser(transition-duration, 1s);
+            }
+        }
+    }
+
+    .counter__text {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        font: 700 18px/18px $mainFont;
+        color: #ffffff;
+        opacity: 1;
+
+        @include crossBrowser(transform, translateY(-50%) );
+        @include crossBrowser(transition, $speedFadeOutCounter);
+    }
+
+    .counter__time {
+        margin: 0px;
+        text-align: center;
+
+        &.counter__time--min {
+            margin-bottom: 3px;
+        }
+
+        .counter__value {
+            margin-right: 4px;
+        }
+    }
+}
+
+@media (max-width: 750px) {
+
+    .widget {
+        display: block;
+
+        .widget__zilean-container {
+            display: none;
+        }
+
+        .widget__lead {
+            width: 100%;
+            padding: 0px 20px;
+            box-sizing: border-box;
+            text-align: center;
+            margin: 20px 0px;
+        }
+
+        .counter {
+            text-align: center;
+
+            .counter__chart {
+                margin: 0px 0px -20px 0px;
+            }
+        }
+    }
+}
