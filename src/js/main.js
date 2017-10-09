@@ -27,6 +27,7 @@ var Counter = (function () {
                 labelMin = labels[0],
                 labelSec = labels[1],
                 remainingTime = 0,
+                ifAnimationWasStarted = false,
                 countTime;
 
             selectedTimeToEventMin = selectedTimeToEventMin > 99 ? 99 : selectedTimeToEventMin;
@@ -61,9 +62,13 @@ var Counter = (function () {
                 labelMin.innerText = remainMin;
                 labelSec.innerText = remainSec;
 
-                setTimeout(function () {
-                    progressBar.className.baseVal = progressBar.className.baseVal.concat(' counter__outer--progress-start');
-                }, 4);
+                if(!ifAnimationWasStarted){
+                    setTimeout(function () {
+                        progressBar.className.baseVal = progressBar.className.baseVal.concat(' counter__outer--progress-start');
+                    }, 4);
+                }
+
+                ifAnimationWasStarted = true;
             }
         }
     }
